@@ -1,0 +1,135 @@
+<?php
+
+namespace App\Filters\Validator;
+
+use CodeIgniter\Config\Services;
+use CodeIgniter\Filters\FilterInterface;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\Response;
+use CodeIgniter\HTTP\ResponseInterface;
+use Config\Throttler;
+use CodeIgniter\Validation\Exceptions\ValidationException;
+
+class SignUp implements FilterInterface
+{
+
+    /**
+     * Do whatever processing this filter needs to do.
+     * By default it should not return anything during
+     * normal execution. However, when an abnormal state
+     * is found, it should return an instance of
+     * CodeIgniter\HTTP\Response. If it does, script
+     * execution will end and that Response will be
+     * sent back to the client, alblowing for error pages,
+     * redirects, etc.
+     *
+     * @param RequestInterface $request
+     * @param array|null       $arguments
+     *
+     * @return mixed
+     */
+    public function before(RequestInterface $request, $arguments = null)
+    {
+        /**
+         * @var \Codeigniter\HTTP\IncomingRequest $request The Request object...
+         */
+
+        // return Services::response()->setJSON("essaie");
+
+        if (url_is(route_to("auth.signup")))
+        {
+            $session = session();
+            $response = Services::response();
+            $validator = Services::validation();
+
+            $status = Response::HTTP_BAD_REQUEST;
+            $status_reason = "should be a POST request";
+            $form_errors = [];
+
+            $response->setContentType("application/json");
+
+            if (! $request->is("POST")) goto send_response;
+            else if (! $request->isAJAX())
+            {
+                $status = Response::HTTP_BAD_REQUEST;
+                $status_reason = "should be an ajax request";
+
+                goto send_response;
+            }
+            
+            $agree_terms = $request->getJsonVar("agree_terms", filter: FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
+            $username = $request->getJsonVar("username", filter: FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
+            $password = $request->getJsonVar("password", filter: FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
+            $password_confim = $request->getJsonVar("password_confirmation", filter: FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
+
+            $throttler = Services::throttler();
+            $config = (object) (new Throttler())->signup;
+
+            if (! $throttler->check(sprintf($config->key, md5($request->getIPAddress())), $config->capacity, $config->seconds))
+            {
+                $status = Response::HTTP_TOO_MANY_REQUESTS;
+                $status_reason = sprintf("Too many attempts. Try again in %s seconds", $throttler->getTokenTime());
+
+                goto send_response;
+            }
+
+            try 
+            {
+                $validate_data = 
+                [
+                    "agree_terms" => $agree_terms,
+                    "username" => $username,
+                    "password" => $password,
+                    "password_confirmation" => $password_confim
+                ];
+
+                if ($validator->run($validate_data, "signup") === false)
+                {
+                    $session->setTempdata("throttler.signup", "false", 2);
+
+                    $status = Response::HTTP_BAD_REQUEST;
+                    $status_reason = "Bad form data";
+
+                    $form_errors = $validator->getErrors();
+                    $status = Response::HTTP_BAD_REQUEST;
+
+                    goto send_response;
+                }
+            } catch (ValidationException)
+            {
+                $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+                $status_reason = "An error ocurred when validating data";
+
+                goto send_response;
+            }
+
+            return;
+            send_response:
+
+            return $response->setStatusCode($status, $status_reason)
+            ->setJSON([
+                "csrf_hash" => csrf_hash(),
+                "http_reason" => $status_reason,
+                "http_code" => $status,
+                "form_errors" => $form_errors
+            ]);
+        }
+    }
+
+    /**
+     * Allows After filters to inspect and modify the response
+     * object as needed. This method does not allow any way
+     * to stop execution of other after filters, short of
+     * throwing an Exception or Error.
+     *
+     * @param RequestInterface  $request
+     * @param ResponseInterface $response
+     * @param array|null        $arguments
+     *
+     * @return mixed
+     */
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
+    {
+        //
+    }
+}
