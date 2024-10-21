@@ -1,0 +1,27 @@
+{
+    "name": "KeepNote",
+    "short_name": "KeepNote",
+    "icons": 
+    [
+        {
+            "src": "/assets/img/icons/keepnote-logo-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        },
+        {
+            "src": "/assets/img/icons/keepnote-logo-1024.png",
+            "type": "image/png",
+            "sizes": "1024x1024"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "display_overrides": ["fullscreen"],
+    "description": "KeepNote | Create and share easly your notes with your friends",
+
+    "theme_color": "#ffe08a",
+    "background_color": "#ffe08a",
+    "orientation": "portrait",
+    "categories": [ "productivity", "utilities"  ]
+    
+}

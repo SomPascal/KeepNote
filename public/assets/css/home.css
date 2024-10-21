@@ -1,0 +1,375 @@
+body {
+    overflow: hidden;
+    font-family: poppins, roboto, sans-serif;
+    overscroll-behavior-y: contain;
+}
+.create-notes-groupe-btn 
+{
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    height: 70px;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.create-notes-groupe-btn .add-notes-btn {
+    position: absolute;
+    background-color: #ffd970;
+    height: inherit;
+    width: inherit;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 10px 80px #4b4b4bbe;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.add-notes-btn:hover, .add-notes-btn:hover {
+    opacity: .9;
+}
+#create_text_note, #upload_downloaded_notes {
+    background-color: #f2f2f2;
+}
+.create-notes-groupe-btn .add-notes-btn .fa {
+    margin: 0;
+}
+.create-notes-groupe-btn .button {
+    position: absolute;
+}
+.blurred-wall {
+    position: fixed;
+    bottom: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: #ffffff00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 30;
+}
+.blur-effect {
+    background-color: #8888887b;
+    backdrop-filter: blur(8px);
+}
+.main {
+    /* position: relative; */
+    width: 100vw;
+    height: 90vh;
+    padding: 10px 10px 15px 10px;
+    background-color: #f2f2f2;
+}
+.main .notes-container
+{
+    backdrop-filter: blur(5px);
+    width: 100%;
+    height: 100%;
+    background-color: #92929248;
+    border-radius: 20px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.notes-box {
+    width: 70%;
+    height: 100%;
+    border-radius: 20px;
+    padding: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.notes-box::-webkit-scrollbar {
+    width: 10px;
+}
+.notes-box::-webkit-scrollbar-button {
+    background-color: #ffffff00;
+}
+.notes-box::-webkit-scrollbar-thumb {
+    height: 10px;
+    background-color: #888;
+    border-radius: 50px;
+}
+.notes-box ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-block-end: 100px;
+}
+.notes-box ul li {
+    border-radius: 10px;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    margin-inline-end: 15px;
+    margin-block-end: 25px;
+    padding: 10px;
+    height: auto;
+    min-height: 250px;
+    max-height: 350px;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.notes-box ul li textarea {
+    font-family: poppins, roboto, sans-serif;
+    background-color: #ffffff00;
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border: none !important;
+    border-color: #ffffff00 !important;
+    margin-bottom: 20px;
+}
+.notes-box ul li textarea::-webkit-scrollbar {
+    width: 2px;
+}
+.notes-box ul li textarea::-webkit-scrollbar-button {
+    background-color: #ffffff00;
+}
+.notes-box ul li textarea::-webkit-scrollbar-thumb {
+    height: 2px;
+    background-color: #b7b7b749;
+    border-radius: 50px;
+}
+.windows-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.windows-box .window {
+    position: fixed;
+    top: 70px;
+    width: 40%;
+    min-width: 350px;
+    height: auto;
+    border-radius: 20px;
+    background-color: #f2f2f2;
+    z-index: 50;
+    box-shadow: 0 20px 80px #4b4b4bbe;
+}
+.extended-note {
+    position: fixed;
+    top: 70px;
+    width: 65%;
+    min-width: 550px;
+    height: 480px;
+    border-radius: 20px;
+    background-color: #f2f2f2;
+    z-index: 50;
+    box-shadow: 0 20px 80px #4b4b4bbe;
+
+}
+.extended-note form {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.extended-note form .navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.extended-note form .navigation .buttons:not(:last-child) {
+    margin-bottom: 0;
+}
+.extended-note form .navigation .buttons button i {
+    margin-left: 0;
+}   
+.extended-note form .notes-data {
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.extended-note form .notes-data :is(input, textarea){
+    width: 100%;
+    font-size: 18px;
+    font-family: poppins, roboto, sans-serif;
+    padding: 10px 20px;
+    background-color: #88888854;
+    border: none;
+    outline: none;
+}
+
+.extended-note form .notes-data textarea {
+    font-size: 18px;
+    border-radius: 15px;
+    resize: none;
+    height: 320px;
+}
+.extended-note form .notes-data textarea::-webkit-scrollbar {
+    width: 10px;
+}
+.extended-note form .notes-data textarea::-webkit-scrollbar-button {
+    background-color: #ffffff00;
+}
+.extended-note form .notes-data textarea::-webkit-scrollbar-thumb {
+    height: 2px;
+    background-color: #b7b7b771;
+    border-radius: 50px;
+}
+.notes-assets {
+    width: 30%;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: start;
+}
+.notes-assets .notes-assets-buttons {
+    display: flex;
+    flex-direction: column;
+}
+#download-notes form {
+    width: 100%;
+    height: 100%;
+}
+.notes-assets .buttons:nth-child(0) {
+    animation-delay: .1s;
+}
+.notes-assets .button:nth-child(1) {
+    animation-delay: .2s
+}
+.notes-assets .buttons:nth-child(2) {
+    animation-delay: .3s;
+}
+.notes-assets .button:nth-child(3){
+    animation-delay: .4s;
+}
+.main .notes-container .notes-assets::-webkit-scrollbar {
+    width: 2px;
+}
+.main .notes-container .notes-assets::-webkit-scrollbar-button {
+    background-color: #ffffff00;
+}
+.main .notes-container .notes-assets::-webkit-scrollbar-thumb {
+    height: 2px;
+    background-color: #b7b7b749;
+    border-radius: 50px;
+}
+.notes-assets .greeting-message {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #90909026;
+    width: 100%;
+    font-size: 1.3em;
+    line-break: anywhere;
+}
+@media screen and (max-width: 650px) 
+{
+    .main .notes-container 
+    {
+        flex-direction: column-reverse;
+    }
+    .main .notes-container .notes-assets 
+    {
+        width: 100%;
+        align-items: flex-start;
+        justify-content: center;
+        background-color: #90909026;
+        border-radius: 20px;
+        height: 100px;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    .main .notes-container .notes-assets .buttons 
+    {
+        flex-wrap: nowrap;
+        margin-bottom: 0px;
+        margin-right: 10px;
+    }
+    .notes-assets .notes-assets-buttons {
+        display: flex;
+        flex-direction: row;
+    }
+    .notes-assets .greeting-message 
+    {
+        opacity: 0;
+        visibility: hidden;
+        display: none;
+        font-size: 1.5em;
+    }
+    .create-notes-groupe-btn 
+    {
+        margin-left: 50%;
+        transform: translate(-50%);
+        right:unset;
+    }
+    .notes-box 
+    {
+        width: 97%;
+        padding: 10px;
+        padding-block-start: 15px;
+    }
+    .notes-box ul 
+    {
+        flex-direction: column;
+    }
+    .notes-box ul li
+    {
+        width: 100%;
+        margin-inline-end: 0;
+    }
+    .notes-box::-webkit-scrollbar 
+    {
+        width: 5px;
+    }
+    .notes-box ul .elarged-note 
+    {
+        width: 100%;
+        top: 0;
+        margin-top: 0;
+        margin-left: 0;
+        height: 100vh;
+        transform: none;
+    }
+    .extended-note 
+    {
+        width: 100%;
+        min-width: 350px;
+        height: 100vh;
+        top: 0;
+    }
+    .extended-note 
+    {
+        border-radius: 0;
+    }
+    .extended-note form 
+    {
+        border-radius: 0;
+    }
+    .extended-note form .notes-data textarea {
+        height: 450px;
+    }
+
+    .windows-box .window {
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        border-radius: 0;
+        padding: 20px;
+    }
+    .download-notes form {
+        padding: 30px;
+        border-radius: 10px;
+        background-color: #b4b4b46a;
+    }
+}
+  
